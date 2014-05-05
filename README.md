@@ -69,6 +69,18 @@ rails generate ahoy_events:active_record
 rake db:migrate
 ```
 
+#### Extend `Ahoy::Event` model
+
+You can use decorators to extend the `Ahoy::Event` model.
+
+For example, you could add the scope `between` in `app/decorators/ahoy/event_decorator.rb`:
+
+```ruby
+Ahoy::Event.class_eval do
+  scope :between, ->(from, to) { where(["time >= ? AND time <= ?", from, to]) }
+end
+```
+
 ### Custom
 
 Create your own subscribers in `config/initializers/ahoy.rb`.
